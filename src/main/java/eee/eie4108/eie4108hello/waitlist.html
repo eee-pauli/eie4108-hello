@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waitlist</title>
+</head>
+<body>
+
+<div id="container">
+  <input type="text" id="itemInput" placeholder="Enter item"/>
+  <button id="pushButton">Insert</button>
+  <button id="pollButton">Poll</button>
+</div>
+
+<span>Current Items: <span id="items"></span></span>
+
+<script>
+    const endpoint = "http://localhost:8080/waitlist"
+    const itemInput = document.getElementById('itemInput');
+    const itemsDisplay = document.getElementById('items');
+
+    async function updateItems() {
+      const response = await fetch(`${endpoint}/`);
+      itemsDisplay.textContent = await response.text();
+    }
+
+    document.getElementById('pushButton').addEventListener('click', async () => {
+      const item = itemInput.value;
+      if (item) {
+        await fetch(`${endpoint}/?item=${encodeURIComponent(item)}`, {
+          method: 'POST'
+        });
+        itemInput.value = ''; // Clear input
+        updateItems(); // Refresh item list
+      }
+    });
+
+    document.getElementById('pollButton').addEventListener('click', async () => {
+      const response = await fetch(`${endpoint}/poll`, {
+        method: 'POST'
+      });
+      itemInput.value = await response.text();
+      updateItems(); // Refresh item list
+    });
+
+    // Initial load of items
+    updateItems();
+</script>
+
+</body>
+</html>
