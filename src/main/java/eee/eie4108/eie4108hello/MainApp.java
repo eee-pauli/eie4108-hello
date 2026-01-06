@@ -1,6 +1,5 @@
 package eee.eie4108.eie4108hello;
 
-import eee.eie4108.eie4108hello.lab1.BankResource;
 import org.eclipse.jetty.server.CustomRequestLog;
 import org.eclipse.jetty.server.RequestLog;
 import org.eclipse.jetty.server.Server;
@@ -21,8 +20,7 @@ public class MainApp {
                                         .register(GreetingResource.class)
                                         .register(WaitListResource.class)
                                         .register(UserResource.class)
-                                        .register(SomeResource.class)
-                                        .register(BankResource.class);
+                                        .register(SomeResource.class);
       
       config.property(ServerProperties.WADL_FEATURE_DISABLE, true);
       String format = "%{client}a - %u %t '%r' %s %O '%{Referer}i' '%{User-Agent}i' '%C'";
