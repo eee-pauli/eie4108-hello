@@ -24,6 +24,7 @@ dependencies {
     implementation('org.glassfish.jersey.media:jersey-media-json-jackson:4.0.0-M4')
     implementation('org.glassfish.jersey.inject:jersey-hk2:4.0.0-M4')
     implementation('org.glassfish.jersey.core:jersey-client:4.0.0-M4')
+    implementation("org.glassfish:jakarta.json:2.0.1")
     implementation('org.apache.commons:commons-lang3:3.19.0')
     implementation("org.slf4j:slf4j-jdk14:2.0.17")
     implementation("org.projectlombok:lombok:1.18.42")
