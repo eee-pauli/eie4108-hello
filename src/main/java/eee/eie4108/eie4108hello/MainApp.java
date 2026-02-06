@@ -3,7 +3,9 @@ package eee.eie4108.eie4108hello;
 import org.eclipse.jetty.server.CustomRequestLog;
 import org.eclipse.jetty.server.RequestLog;
 import org.eclipse.jetty.server.Server;
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.slf4j.LoggerFactory;
@@ -21,12 +23,13 @@ public class MainApp {
                                         .register(WaitListResource.class)
                                         .register(UserResource.class)
                                         .register(SomeResource.class);
-      
+
       config.property(ServerProperties.WADL_FEATURE_DISABLE, true);
       String format = "%{client}a - %u %t '%r' %s %O '%{Referer}i' '%{User-Agent}i' '%C'";
-      Server server = JettyHttpContainerFactory.createServer(URI.create("http://localhost:8080/"), config, false);
-      RequestLog requestLog = new CustomRequestLog("request.log", format);
-      server.setRequestLog(requestLog);
+      // Server server = JettyHttpContainerFactory.createServer(URI.create("http://localhost:8080/"), config, false);
+      HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create("http://localhost:8080/api"), config, false);
+      //  RequestLog requestLog = new CustomRequestLog("request.log", format);
+      // server.setRequestLog(requestLog);
       server.start();
       
       Runtime.getRuntime().addShutdownHook(new Thread(() -> {
