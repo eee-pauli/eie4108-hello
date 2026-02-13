@@ -22,12 +22,13 @@ public class MainApp {
                                         .register(GreetingResource.class)
                                         .register(WaitListResource.class)
                                         .register(UserResource.class)
-                                        .register(SomeResource.class);
+                                        .register(SomeResource.class)
+                                        .register(Dome.class);
 
       config.property(ServerProperties.WADL_FEATURE_DISABLE, true);
       String format = "%{client}a - %u %t '%r' %s %O '%{Referer}i' '%{User-Agent}i' '%C'";
       // Server server = JettyHttpContainerFactory.createServer(URI.create("http://localhost:8080/"), config, false);
-      HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create("http://localhost:8080/api"), config, false);
+      HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create("http://localhost:8080/"), config, false);
       //  RequestLog requestLog = new CustomRequestLog("request.log", format);
       // server.setRequestLog(requestLog);
       server.start();
